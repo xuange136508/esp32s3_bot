@@ -177,13 +177,24 @@ void MyApp::startLoop() {
 
 
     // 打印SD卡的总空间与剩余空间
-    // size_t bytes_total, bytes_free;   
-    // // spi2_init(); // spi 初始化
-    // while (sd_spi_init()){ // sd card 初始化
-    //     vTaskDelay(500); // 检测不到SD卡 
-    // }
-    // sd_get_fatfs_usage(&bytes_total, &bytes_free); // 打印使用情况
-    // ESP_LOGE(APP_TAG, "SD卡 完整大小：%zu, 剩余大小：%zu", bytes_total, bytes_free);
+    size_t bytes_total, bytes_free;   
+    // spi2_init(); // spi 初始化
+    while (sd_spi_init()){ // sd card 初始化
+        vTaskDelay(500); // 检测不到SD卡 
+    }
+    sd_get_fatfs_usage(&bytes_total, &bytes_free); // 打印使用情况
+    ESP_LOGE(APP_TAG, "SD卡 完整大小：%zu, 剩余大小：%zu", bytes_total, bytes_free);
+
+
+    // GET请求示例
+    // HttpClient http;
+    // std::string get_response = http.get("http://httpbin.org/get");
+    // ESP_LOGI("HttpClient", "GET Response:\n%s\n", get_response.c_str());
+    
+    // POST请求示例
+    // std::string post_data = R"({"name":"ESP32","value":42})";
+    // std::string post_response = http.post("http://httpbin.org/post", post_data);
+    // ESP_LOGI("HttpClient", "POST Response:\n%s\n", post_response.c_str());
 
 
     // json解析任务
@@ -243,17 +254,6 @@ void MyApp::startLoop() {
     codec->EnableInput(false);
     // codec->EnableOutput(false);
 
-
-     
-    // GET请求示例
-    // HttpClient http;
-    // std::string get_response = http.get("http://httpbin.org/get");
-    // ESP_LOGI("HttpClient", "GET Response:\n%s\n", get_response.c_str());
-    
-    // POST请求示例
-    // std::string post_data = R"({"name":"ESP32","value":42})";
-    // std::string post_response = http.post("http://httpbin.org/post", post_data);
-    // ESP_LOGI("HttpClient", "POST Response:\n%s\n", post_response.c_str());
 }
 
 
